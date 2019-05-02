@@ -1,5 +1,5 @@
 Name: Mauricio Canales, Parth Gupta, Sungsoo Kim 
-Data Source: Austin B Cycle Data (2014) 
+Data Source: Austin B Cycle Data (2014)  
 Project Description:
 
 Overview
@@ -57,4 +57,4 @@ Instructions
 
 Chargeable Components 
 The first hundred queries per month are free, after that we charge a certain amount per 1000 queries.
-Don’t charge per query, charge per bandwidth
+Donï¿½t charge per query, charge per bandwidth
