@@ -6,6 +6,17 @@ Overview
 
 This API will enable the user to review B-Cycle usage, including usage dates, travel time, and docking locations, in the City of Austin from October 26th, 2014 onwards. 
 
+Objectives/What we Want:
+- Date of trip
+- Trip duration
+  - Average trip duration
+- Kiosk ID 
+  - Most returned kiosk
+  - Most checked out kiosk)
+- Membership (which is most popular)
+  - Average trip duration for a given membership type
+  - Average frequency per membership type
+  
 The API specification is RESTful in that it uses HTTP methods (GET, POST, PUT, and DELETE) to interact with the allocations database. The HTTP responses are always in JSON format. 
 
 API Specifications 
@@ -46,4 +57,4 @@ Instructions
 
 Chargeable Components 
 The first hundred queries per month are free, after that we charge a certain amount per 1000 queries.
-Donâ€™t charge per query, charge per bandwidth
+Don’t charge per query, charge per bandwidth
