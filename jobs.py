@@ -82,3 +82,23 @@ def update_job_status(jid, status):
     else:
         raise Exception()
 
+#   Plotting
+
+# read the raw file bytes into a python object
+file_bytes = open('/tmp/myfile.png', 'rb').read()
+
+# set the file bytes as a key in Redis
+rd.set('key', file_bytes)
+
+# two lists of data corresponding to the x and y-axis, respectively:
+t = [1,2,3,4,5]
+d = [3,6,7.5, 9, 14]
+
+# create the scatter plot
+plt.scatter(t, d)
+
+# save to a file
+plt.savefig('/tmp/myfile.png', dpi=150)
+
+# getting plot from redis
+plot = hmget('<job_id>', 'plot')
