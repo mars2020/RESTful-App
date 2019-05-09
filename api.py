@@ -8,14 +8,6 @@ app = Flask(__name__)
 # Data from a json file -----------------------------
 data = json.load(open('B-Cycle', 'r'))
 
-# Creating New ID from 0
-int newid = 0; 
-for k in data.keys():
-    if k == 'Trip ID'
-        data[k] = newid
-        newid = newid + 1
-
-
 # Data return _______________________________________
 
 @app.route('/', method=['GET'])
@@ -40,13 +32,13 @@ def get_membership():
 @app.route('/membership/<int:id>',method=['GET']) # Returns Membership of specific trip 
 def get_membershipid(id):
     return jsonify(data['Membership Type'][id])
-    
+
 # Bicycle ID _________________________________________
 @app.route('/bicycle',method=['GET'])    # Lists all BIKE IDs
 def get_bid():
     return jsonify(data['Bicycle ID'])
 
-@app.route('/bicycle/<int:id>',method=['GET'])
+@app.route('/bicycle/<int:id>',method=['GET']) # Lists BIKe id of specifc trip 
 def get_bidtid(id);
     return jsonify(data['Bicycle ID'][id])
 
@@ -56,11 +48,11 @@ def get_bidtid(id);
 def get_cokiosk():
     return jsonify(data['Checkout Kiosk'])
 
-@app.route('/cokiosk/<kid>', method=['GET']) # IDs
+@app.route('/cokiosk/id', method=['GET']) # KIOSK IDs 
 def get_cokioskid():
     return jsonify(data['Checkout Kiosk ID'])
 
-@app.route('/cokiosk/<kid>/date', method=['GET']) # Dates
+@app.route('/cokiosk/<kid>/date', method=['GET']) # DATEs
 def get_cokioskdate(id):
     return jsonify(data['Checkout Date'])
 
