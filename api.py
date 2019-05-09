@@ -10,6 +10,8 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 # Data from a json file -----------------------------
 data = json.load(open('B-Cycle.json', 'r'))
 
+############### Basic Return Functions ################
+
 # Data return _______________________________________
 
 @app.route('/', method=['GET'])
@@ -28,42 +30,46 @@ def jobs_api():
 
 # Membership Type ____________________________________
 @app.route('/membership',method=['GET']) # Lists all Membership
+
 def get_membership():
     membership = [x['Membership Type'] for x in data]
     membership = list(set(membership))
     return jsonify(membership)
 
+def get_memberships():
+    return jsonify(data['Membership Type'])
+
+
 @app.route('/membership/<int:id>',method=['GET']) # Returns Membership of specific trip 
-def get_membershipid(id):
+def get_membership(id):
     return jsonify(data['Membership Type'][id])
 
 # Bicycle ID _________________________________________
 @app.route('/bicycle',method=['GET'])    # Lists all BIKE IDs
-def get_bid():
+def get_bids():
     return jsonify(data['Bicycle ID'])
 
 @app.route('/bicycle/<int:id>',method=['GET']) # Lists BIKe id of specifc trip 
-def get_bidtid(id);
+def get_bid(id);
     return jsonify(data['Bicycle ID'][id])
 
 # Bike Check out  ____________________________________
 
 @app.route('/cokiosk/', method=['GET']) # NAMEs 
-def get_cokiosk():
+def get_cokiosks():
     return jsonify(data['Checkout Kiosk'])
 
 @app.route('/cokiosk/<int:id>',method=['GET']) # Kiosk Name of specific trip 
-def get_tidkioskname():
+def get_cokiosk():
     return jsonify(data['Checkout Kiosk'][id])
 
 @app.route('/cokiosk/id', method=['GET']) # KIOSK IDs 
-def get_cokioskid():
+def get_cokioskids():
     return jsonify(data['Checkout Kiosk ID'])
 
 @app.route('/cokiosk/id/<int:id>',method=['GET']) # KIOSK ID of specific trip 
-def get_tidkid(id):
+def get_cokioskid(id):
     return jsonify(data['Checkout Kiosk ID'][id])
-
 
 @app.route('/cokiosk/date', method=['GET']) # Checkout dates
 def get_cokioskdates():
@@ -74,31 +80,43 @@ def get_cokioskdates():
 def get_cokioskdate(id):
     return jsonify(data['Checkout Date'][id])
 
+@app.route('/cokiosk/time',method=['GET']) # Checkout times
+def get_cokiosktimes():
+    return jsonify(data['Checkout Time'])
+
+@app.route('/cokiosk/time/<int:id>',method=['GET']) # Checkout time for specific trip 
+def get_cokiosktime(id):
+    return jsonify(data['Checkout Time'][id])
 
 # Bike Return  _______________________________________
 
-@app.route('/rkiosk/', method=['GET']) #  Names  
-def get_cikiosk():
+@app.route('/rkiosk/name', method=['GET']) #  Names  
+def get_returnkiosks():
     return jsonify(data['Return Kiosk'])
 
-@app.route('/rkiosk/<int:id>',method=['GET']) # Name of Kiosk 
+@app.route('/rkiosk/name/<int:id>',method=['GET']) # Name of Kiosk 
+def get_returnkiosk(id):
+    return jsonify(data['Return Kiosk'][id])
 
-@app.route('/rkiosk/<kioskid>', method=['GET']) # ID 
-def get_cikioskid():
+@app.route('/rkiosk/id', method=['GET']) # IDs 
+def get_rkioskids():
     return jsonify(data['Return Kiosk ID'])
 
-@app.route('/rkiosk/<kioskid>/<date>', method=['GET'])
-def get_cikioskdate():
-
+@app.route('/rkiosk/id/<int:id>',method=['GET']) # ID of Kiosk 
+def get_rkioskid(id):
+    retrun jsonify(data['Return Kiosk ID'][id])
 
 # Trip Duration ______________________________________
-@app.route('/duration',method=['GET'])
-def get_duration(): 
+
+@app.route('/duration',method=['GET']) # Durations of trips
+def get_durations(): 
     return jsonify(data['Trip Duration Minutes'])
 
-@app.route('/duration/<int:id>')
+@app.route('/duration/<int:id>') # Duration of specifc trip 
 def get_durationid(id):
-    return jsonify(data[id]['Trip Duration Minutes'])
+    return jsonify(data['Trip Duration Minutes'][id])
+
+################ Data Analysis ############################
 
 
 # Time Averaging -------------------------------------
