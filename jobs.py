@@ -7,17 +7,13 @@ import os
 from dataetime import timedelta
 
 
-# redis server connection
-rd = redis.StrictRedis(host='172.17.0.1', port=6379, db=0)
-
-
-# getting ip of redis
+# getting IP of redis
 def get_redis_ip():
     return os.environ.get('REDIS_IP')
 
 # queue
 rd = redis.StrictRedis(host=get_redis_ip(),port=6379,db=0)
-q = HotQueue("queue", host='172.17.0.1', port=6379, db=1) #q = HotQueue("queue", host=get_redis_ip(), port=6379, db=1)
+queue = HotQueue("queue", host=get_redis_ip(), port=6379, db=1)
 plots = redis.strictRedis(host=get_redis_ip(),port=6379,db=2)
 
 
@@ -43,34 +39,35 @@ def generate_job_key(jid):
 # Starting job format
 def instantiate_job(jid, status, start, end):
     if type(jid) == str:
-        return {'id': jid,
-                'status': status,
-                'start': start,
-                'end': end
-        }
-    return {'id': jid.decode('utf-8'),
-            'status': status.decode('utf-8'),
-            'start': start.decode('utf-8'),
-            'end': end.decode('utf-8')
-    }
+        job_dict =  {'id': jid,
+                     'status': status,
+                     'start': start,
+                     'end': end}
+    else:
+        job_dict =  {'id': jid.decode('utf-8'),
+                     'status': status.decode('utf-8'),
+                     'start': start.decode('utf-8'),
+                     'end': end.decode('utf-8')}
+    return job_dict
 
 #convert job fields
 #def convert_jon_fields(key):
 #    return { 'id' rd.hget(key,'id').decode('utf-8'), 
 
+# Saving job to redis database
 def save_job(job_key, job_dict):
-    """Save a job object in the Redis database."""
-    rd.hmset(....)
+    rd.hmset(job_key,job_dict)
 
+# function to add job to queue
 def queue_job(jid):
-    """Add a job to the redis queue."""
-    ....
+    job = queue.put(jid)
+
+# Adding job to redis queue
 def add_job(start, end, status="submitted"):
-    """Add a job to the redis queue."""
     jid = generate_jid()
     job_dict = instantiate_job(jid, status, start, end)
-    save_job(......)
-    queue_job(......)
+    save_job(job_dict)
+    queue_job(jid)
     return job_dict
 
 # not sure if it goes here
