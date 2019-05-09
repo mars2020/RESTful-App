@@ -1,6 +1,7 @@
 import jobs.py
 import datetime
 import json
+from hotqueue import HotQueue
 
 
 @queue.worker
