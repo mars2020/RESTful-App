@@ -56,7 +56,7 @@ def get_cokioskid():
 def get_cokioskdate(id):
     return jsonify(data['Checkout Date'])
 
-@app.route('/cokiosk/<kid>/<date>'')
+@app.route('/cokiosk/<kid>/<date>')
 
 # Bike Return  _______________________________________
 
