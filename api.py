@@ -4,9 +4,11 @@ import jobs.py
 
 # The main Flask app --------------------------------
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 
 # Data from a json file -----------------------------
-data = json.load(open('B-Cycle', 'r'))
+data = json.load(open('B-Cycle.json', 'r'))
 
 # Data return _______________________________________
 
@@ -27,7 +29,9 @@ def jobs_api():
 # Membership Type ____________________________________
 @app.route('/membership',method=['GET']) # Lists all Membership
 def get_membership():
-    return jsonify(data['Membership Type'])
+    membership = [x['Membership Type'] for x in data]
+    membership = list(set(membership))
+    return jsonify(membership)
 
 @app.route('/membership/<int:id>',method=['GET']) # Returns Membership of specific trip 
 def get_membershipid(id):
@@ -63,7 +67,8 @@ def get_tidkid(id):
 
 @app.route('/cokiosk/date', method=['GET']) # Checkout dates
 def get_cokioskdates():
-    return jsonify(data['Checkout Date'])
+    dataset = list(filter(lambda x:x['Checkout Date'] == date,data))
+    return jsonify(dataset)
 
 @app.route('/cokiosk/<int:id>/date', method=['GET']) # Checkout date of specific trip 
 def get_cokioskdate(id):

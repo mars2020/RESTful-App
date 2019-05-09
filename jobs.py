@@ -5,7 +5,7 @@ import uuid
 import datetime
 import os
 from dataetime import timedelta
-
+import matplotlib.pyplot as plt
 
 # getting IP of redis
 def get_redis_ip():
@@ -14,7 +14,8 @@ def get_redis_ip():
 # queue
 rd = redis.StrictRedis(host=get_redis_ip(),port=6379,db=0)
 queue = HotQueue("queue", host=get_redis_ip(), port=6379, db=1)
-plots = redis.strictRedis(host=get_redis_ip(),port=6379,db=2)
+# data = redis.strictRedis(host=get_redis_ip(),port=6379,db=2)
+plots = redis.strictRedis(host=get_redis_ip(),port=6379,db=3)
 
 
 # get time
@@ -51,7 +52,7 @@ def instantiate_job(jid, status, start, end):
     return job_dict
 
 #convert job fields
-#def convert_jon_fields(key):
+#def convert_jsonn_fields(key):
 #    return { 'id' rd.hget(key,'id').decode('utf-8'), 
 
 # Saving job to redis database
