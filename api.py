@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 import json
 import jobs.py
+from flask import send_file
+
 
 # The main Flask app --------------------------------
 app = Flask(__name__)
@@ -27,6 +29,19 @@ def jobs_api():
     except Exception as e:
         return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
     return json.dumps(jobs.add_job(job['start'], job['end']))
+
+# Getting file plots ________________________________
+
+# inside your flask function:
+@app.route('/jobs/<job_id>/plot', methods=['GET']):
+def get_job_plot(job_id):
+
+    # do something to get the plot from the database:
+    plot = get_job_plot_from_db(job_id)
+    return send_file(io.BytesIO(plot),
+                     mimetype='image/png',
+                     as_attachment=True,
+                     attachment_filename='{}.png'.format(job_id))
 
 # Membership Type ____________________________________
 @app.route('/membership',method=['GET']) # Lists all Membership

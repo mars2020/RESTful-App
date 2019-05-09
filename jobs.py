@@ -84,6 +84,12 @@ def update_job_status(jid, status):
 
 #   Plotting
 
+# create a bytes stream object out of some raw bytes:
+bstream = io.BytesIO(some_bytes)
+
+# do something with the stream
+bstream.write(b'abc...')
+
 # read the raw file bytes into a python object
 file_bytes = open('/tmp/myfile.png', 'rb').read()
 
