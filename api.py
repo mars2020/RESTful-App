@@ -33,7 +33,7 @@ def jobs_api():
 # Getting file plots ________________________________
 
 # inside your flask function:
-@app.route('/jobs/<job_id>/plot', methods=['GET']):
+@app.route('/jobs/<int:job_id>/plot', methods=['GET'])
 def get_job_plot(job_id):
 
     # do something to get the plot from the database:
@@ -65,7 +65,7 @@ def get_bids():
     return jsonify(data['Bicycle ID'])
 
 @app.route('/bicycle/<int:id>',method=['GET']) # Lists BIKe id of specifc trip 
-def get_bid(id);
+def get_bid(id):
     return jsonify(data['Bicycle ID'][id])
 
 # Bike Check out  ____________________________________
@@ -119,7 +119,7 @@ def get_rkioskids():
 
 @app.route('/rkiosk/id/<int:id>',method=['GET']) # ID of Kiosk 
 def get_rkioskid(id):
-    retrun jsonify(data['Return Kiosk ID'][id])
+    return jsonify(data['Return Kiosk ID'][id])
 
 # Trip Duration ______________________________________
 
@@ -138,6 +138,11 @@ def get_durationid(id):
 
 @app.route('/average_time', method=['GET'])
 def get_avtime():
+    # average time calculation 
+    return jsonify(data['Trip Duration Minutes'][id])
 
-@app.route('/average_time/<date_interval>', method=['GET'])
+@app.route('/average_time/<string:date_interval>', method=['GET'])
 def get_avtime_date():
+    # average time for given date calculation   
+    return jsonify(data['Trip Duration Minutes'][id])
+
