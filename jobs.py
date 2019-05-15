@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib as plt
 import api # importing api functions
-from dataetime import timedelta
+from datetime import timedelta #changed dataetime to datetime
 import matplotlib.pyplot as plt
 
 # getting IP of redis
@@ -19,7 +19,7 @@ def get_redis_ip():
 rd = redis.StrictRedis(host=get_redis_ip(),port=6379,db=0)
 queue = HotQueue("queue", host=get_redis_ip(), port=6379, db=1)
 # data = redis.strictRedis(host=get_redis_ip(),port=6379,db=2)
-plots = redis.strictRedis(host=get_redis_ip(),port=6379,db=3)
+plots = redis.StrictRedis(host=get_redis_ip(),port=6379,db=3)
 
 
 # get time
@@ -135,12 +135,12 @@ def find_mean(cat):
     else:
         return 
 
-def plotbydate() 
+def plotbydate(): 
     data = pd.read_json("B-Cycle.json")
     data = data.set_index('Checkout Date')
     
 
-def find_range(cat:
+def find_range(cat):
     data = b_cycle()
     found = validity_test(cat)
     if found == True:
