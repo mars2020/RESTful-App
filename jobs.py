@@ -1,4 +1,5 @@
 from hotqueue import HotQueue
+#import tkinter
 import redis
 import json
 import uuid
@@ -8,7 +9,7 @@ import io #new line
 import pandas as pd
 import numpy as np
 import matplotlib as plt
-import api # importing api functions
+import app # importing api functions
 from datetime import timedelta #changed dataetime to datetime
 import matplotlib.pyplot as plt
 
