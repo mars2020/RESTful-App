@@ -3,7 +3,7 @@ import json
 #import jobs
 import numpy as np
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from flask import send_file
 
 
@@ -159,3 +159,9 @@ def get_avtime():
 def get_avtime_date():
     temp_data = pd.read_json('B-Cycle.json')
     return jsonify(temp_data['Trip Duration Minutes'].mean())
+
+@app.route('/plot/<string:name>', methods=['GET'])
+def graph(name):
+        d = pd.DataFrame.from_dict(data)
+        graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
+        plt.show(graph)                                       # graph displayvh
