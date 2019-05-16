@@ -4,6 +4,7 @@ import json
 import uuid
 import datetime
 import os
+import io #new line
 import pandas as pd
 import numpy as np
 import matplotlib as plt
@@ -86,19 +87,20 @@ def update_job_status(jid, status):
     else:
         raise Exception()
 
+    """ Comment out plotting section in 
 #   Plotting
 
 # create a bytes stream object out of some raw bytes:
 bstream = io.BytesIO(some_bytes)
 
 # do something with the stream
-bstream.write(b'abc...')
+#bstream.write(b'abc...')
 
 # read the raw file bytes into a python object
-file_bytes = open('/tmp/myfile.png', 'rb').read()
+#file_bytes = open('/tmp/myfile.png', 'rb').read()
 
 # set the file bytes as a key in Redis
-rd.set('key', file_bytes)
+#rd.set('key', file_bytes)
 
 def validity_test(cat): # Tests existence of field 
     data = b_cycle()
@@ -157,4 +159,4 @@ plt.scatter(t, d)
 plt.savefig('/tmp/myfile.png', dpi=150)
 
 # getting plot from redis
-plot = hmget('<job_id>', 'plot')
+plot = hmget('<job_id>', 'plot')"""

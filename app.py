@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import json
-import jobs.py
+#import jobs
 import numpy as np
 import pandas as pd
 import matplotlib as plt
@@ -19,7 +19,7 @@ data = json.load(open('B-Cycle.json', 'r'))
 
 # Data return _______________________________________
 
-@app.route('/', method=['GET'])
+@app.route('/', methods=['GET'])
 def b_cycle():
     return jsonify(data)
 
@@ -47,86 +47,85 @@ def get_job_plot(job_id):
                      attachment_filename='{}.png'.format(job_id))
 
 # Membership Type ____________________________________
-@app.route('/membership',method=['GET']) # Lists all Membership
-
+@app.route('/membership', methods=['GET']) # Lists all Membership
 def get_membership():
     membership = [x['Membership Type'] for x in data]
     membership = list(set(membership))
     return jsonify(membership)
 
-def get_memberships():
-    return jsonify(data['Membership Type'])
+#def get_memberships():
+ #   return jsonify(data['Membership Type'])
 
 
-@app.route('/membership/<int:id>',method=['GET']) # Returns Membership of specific trip 
-def get_membership(id):
+@app.route('/membership/<int:id>', methods=['GET']) # Returns Membership of specific trip 
+def get_membership_by_id(id):
     return jsonify(data['Membership Type'][id])
 
 # Bicycle ID _________________________________________
-@app.route('/bicycle',method=['GET'])    # Lists all BIKE IDs
+@app.route('/bicycle', methods=['GET'])    # Lists all BIKE IDs
 def get_bids():
     return jsonify(data['Bicycle ID'])
 
-@app.route('/bicycle/<int:id>',method=['GET']) # Lists BIKe id of specifc trip 
+@app.route('/bicycle/<int:id>',methods=['GET']) # Lists BIKe id of specifc trip 
 def get_bid(id):
     return jsonify(data['Bicycle ID'][id])
 
 # Bike Check out  ____________________________________
 
-@app.route('/cokiosk/', method=['GET']) # NAMEs 
+@app.route('/cokiosk/', methods=['GET']) # NAMEs 
 def get_cokiosks():
     return jsonify(data['Checkout Kiosk'])
 
-@app.route('/cokiosk/<int:id>',method=['GET']) # Kiosk Name of specific trip 
+@app.route('/cokiosk/<int:id>', methods=['GET']) # Kiosk Name of specific trip 
 def get_cokiosk():
     return jsonify(data['Checkout Kiosk'][id])
 
-@app.route('/cokiosk/id', method=['GET']) # KIOSK IDs 
+@app.route('/cokiosk/id', methods=['GET']) # KIOSK IDs 
 def get_cokioskids():
     return jsonify(data['Checkout Kiosk ID'])
 
-@app.route('/cokiosk/id/<int:id>',method=['GET']) # KIOSK ID of specific trip 
+@app.route('/cokiosk/id/<int:id>', methods=['GET']) # KIOSK ID of specific trip 
 def get_cokioskid(id):
     return jsonify(data['Checkout Kiosk ID'][id])
 
-@app.route('/cokiosk/date', method=['GET']) # Checkout dates
+@app.route('/cokiosk/date', methods=['GET']) # Checkout dates
 def get_cokioskdates():
     dataset = list(filter(lambda x:x['Checkout Date'] == date,data))
     return jsonify(dataset)
 
-@app.route('/cokiosk/<int:id>/date', method=['GET']) # Checkout date of specific trip 
+@app.route('/cokiosk/<int:id>/date', methods=['GET']) # Checkout date of specific trip 
 def get_cokioskdate(id):
     return jsonify(data['Checkout Date'][id])
 
-@app.route('/cokiosk/time',method=['GET']) # Checkout times
+@app.route('/cokiosk/time', methods=['GET']) # Checkout times
 def get_cokiosktimes():
     return jsonify(data['Checkout Time'])
 
-@app.route('/cokiosk/time/<int:id>',method=['GET']) # Checkout time for specific trip 
+@app.route('/cokiosk/time/<int:id>', methods=['GET']) # Checkout time for specific trip 
 def get_cokiosktime(id):
     return jsonify(data['Checkout Time'][id])
 
 # Bike Return  _______________________________________
 
-@app.route('/rkiosk/name', method=['GET']) #  Names  
+@app.route('/rkiosk/name', methods=['GET']) #  Names  
 def get_returnkiosks():
     return jsonify(data['Return Kiosk'])
 
-@app.route('/rkiosk/name/<int:id>',method=['GET']) # Name of Kiosk 
+@app.route('/rkiosk/name/<int:id>', methods=['GET']) # Name of Kiosk 
 def get_returnkiosk(id):
     return jsonify(data['Return Kiosk'][id])
 
-@app.route('/rkiosk/id', method=['GET']) # IDs 
+@app.route('/rkiosk/id', methods=['GET']) # IDs 
 def get_rkioskids():
     return jsonify(data['Return Kiosk ID'])
 
-@app.route('/rkiosk/id/<int:id>',method=['GET']) # ID of Kiosk 
+@app.route('/rkiosk/id/<int:id>',methods=['GET']) # ID of Kiosk 
 def get_rkioskid(id):
     return jsonify(data['Return Kiosk ID'][id])
 
 # Trip Duration ______________________________________
 
-@app.route('/duration',method=['GET']) # Durations of trips
+@app.route('/duration', methods=['GET']) # Durations of trips
 def get_durations(): 
     return jsonify(data['Trip Duration Minutes'])
 
@@ -139,12 +138,12 @@ def get_durationid(id):
 
 # Time Averaging -------------------------------------
 
-@app.route('/average_time', method=['GET'])
+@app.route('/average_time', methods=['GET'])
 def get_avtime():
     # average time calculation 
     return jsonify(data['Trip Duration Minutes'][id])
 
-@app.route('/average_time/<string:date_interval>', method=['GET'])
+@app.route('/average_time/<string:date_interval>', methods=['GET'])
 def get_avtime_date():
     temp_data = pd.read_json('B-Cycle.json')
     return jsonify(temp_data['Trip Duration Minutes'].mean())
