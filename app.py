@@ -46,6 +46,10 @@ def get_job_plot(job_id):
                      as_attachment=True,
                      attachment_filename='{}.png'.format(job_id))
 
+@app.route('/entry/<int:id>', methods=['GET'])
+def get_entry(id):
+
+    return jsonify(data[id])
 # Membership Type ____________________________________
 @app.route('/membership', methods=['GET']) # Lists all Membership
 def get_membership():
@@ -64,36 +68,36 @@ def get_membership_by_id(id):
 # Bicycle ID _________________________________________
 @app.route('/bicycle', methods=['GET'])    # Lists all BIKE IDs
 def get_bids():
-    return jsonify(data['Bicycle ID'])
+    bicycle = [x['Bicycle ID'] for x in data]
+    bicycle = list(set(bicycle))
+    return jsonify(bicycle)
+    
 
-@app.route('/bicycle/<int:id>',methods=['GET']) # Lists BIKe id of specifc trip 
+@app.route('/bicycle/<int:id>',methods=['GET']) # BIKe id of specifc trip 
 def get_bid(id):
-    return jsonify(data['Bicycle ID'][id])
+    return jsonify(data[id]['Bicycle ID'])
 
 # Bike Check out  ____________________________________
 
-@app.route('/cokiosk/', methods=['GET']) # NAMEs 
+@app.route('/cokiosk', methods=['GET']) # NAMEs 
 def get_cokiosks():
-    checkout_kiosk = [x['Checkout Kisos'] for x in data]
-    checkout_kiosk = list(set(checkout_kiosk))
-    return jsonify(checkout_kiosk)
+    cokiosk = [x['Checkout Kiosk'] for x in data]
+    cokiosk = list(set(cokiosk))
+    return jsonify(cokiosk)
+
+@app.route('/codate', methods=['GET']) # dates 
+def get_dates():
+    dates = [x['Checkout Kiosk'] for x in data]
+    dates = list(set(dates))
+    return jsonify(dates)
 
 @app.route('/cokiosk/<int:id>', methods=['GET']) # Kiosk Name of specific trip 
 def get_cokiosk():
     return jsonify(data['Checkout Kiosk'][id])
 
-@app.route('/cokiosk/id', methods=['GET']) # KIOSK IDs 
-def get_cokioskids():
-    return jsonify(data['Checkout Kiosk ID'])
-
 @app.route('/cokiosk/id/<int:id>', methods=['GET']) # KIOSK ID of specific trip 
 def get_cokioskid(id):
     return jsonify(data['Checkout Kiosk ID'][id])
-
-@app.route('/cokiosk/date', methods=['GET']) # Checkout dates
-def get_cokioskdates():
-    dataset = list(filter(lambda x:x['Checkout Date'] == date,data))
-    return jsonify(dataset)
 
 @app.route('/cokiosk/<int:id>/date', methods=['GET']) # Checkout date of specific trip 
 def get_cokioskdate(id):
@@ -111,7 +115,7 @@ def get_cokiosktime(id):
 
 # Bike Return  _______________________________________
 
-@app.route('/rkiosk/name', methods=['GET']) #  Names  
+@app.route('/rkiosk', methods=['GET']) #  Names  
 def get_returnkiosks():
     return_kiosk = [x['Return Kiosk'] for x in data]
     return_kiosk = list(set(return_kiosk))
