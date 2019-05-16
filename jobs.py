@@ -87,6 +87,15 @@ def update_job_status(jid, status):
     else:
         raise Exception()
 
+
+def graph(name):
+        d = pd.DataFrame.from_dict(data)
+        name = name.replace('-',' ')
+        graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
+        plt.show(graph)                                       # graph displayvh
+        return '',200
+
+
     """ Comment out plotting section in 
 #   Plotting
 

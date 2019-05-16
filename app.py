@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from flask import send_file
-
+from jobs import *
 
 # The main Flask app --------------------------------
 app = Flask(__name__)
@@ -161,9 +161,11 @@ def get_avtime_date():
     return jsonify(temp_data['Trip Duration Minutes'].mean())
 
 @app.route('/plot/<string:name>', methods=['GET'])
-def graph(name):
-        d = pd.DataFrame.from_dict(data)
-        name = name.replace('-',' ')
-        graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
-        plt.show(graph)                                       # graph displayvh
-        return '',200
+    graph(name)
+
+#def graph(name):
+#        d = pd.DataFrame.from_dict(data)
+#        name = name.replace('-',' ')
+#        graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
+#        plt.show(graph)                                       # graph displayvh
+#        return '',200
