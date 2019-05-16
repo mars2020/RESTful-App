@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import json
-#import jobs
+#from jobs import jobs
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
