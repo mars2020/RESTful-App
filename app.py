@@ -163,5 +163,8 @@ def get_avtime_date():
 @app.route('/plot/<string:name>', methods=['GET'])
 def graph(name):
         d = pd.DataFrame.from_dict(data)
+        name = name.replace('-',' ')
         graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
         plt.show(graph)                                       # graph displayvh
+        return '',200
+
