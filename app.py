@@ -74,7 +74,9 @@ def get_bid(id):
 
 @app.route('/cokiosk/', methods=['GET']) # NAMEs 
 def get_cokiosks():
-    return jsonify(data['Checkout Kiosk'])
+    checkout_kiosk = [x['Checkout Kisos'] for x in data]
+    checkout_kiosk = list(set(checkout_kiosk))
+    return jsonify(checkout_kiosk)
 
 @app.route('/cokiosk/<int:id>', methods=['GET']) # Kiosk Name of specific trip 
 def get_cokiosk():
@@ -99,7 +101,9 @@ def get_cokioskdate(id):
 
 @app.route('/cokiosk/time', methods=['GET']) # Checkout times
 def get_cokiosktimes():
-    return jsonify(data['Checkout Time'])
+    checkout_time = [x['Checkout Time'] for x in data]
+    checkout_time = list(set(checkout_time))
+    return jsonify(checkout_time)
 
 @app.route('/cokiosk/time/<int:id>', methods=['GET']) # Checkout time for specific trip 
 def get_cokiosktime(id):
@@ -109,7 +113,9 @@ def get_cokiosktime(id):
 
 @app.route('/rkiosk/name', methods=['GET']) #  Names  
 def get_returnkiosks():
-    return jsonify(data['Return Kiosk'])
+    return_kiosk = [x['Return Kiosk'] for x in data]
+    return_kiosk = list(set(return_kiosk))
+    return jsonify(return_kiosk)
 
 @app.route('/rkiosk/name/<int:id>', methods=['GET']) # Name of Kiosk 
 def get_returnkiosk(id):
@@ -127,7 +133,9 @@ def get_rkioskid(id):
 
 @app.route('/duration', methods=['GET']) # Durations of trips
 def get_durations(): 
-    return jsonify(data['Trip Duration Minutes'])
+    trip_duration = [x['Trip Duration Minutes'] for x in data]
+    trip_duration = list(set(trip_duration))
+    return jsonify(trip_duration)
 
 @app.route('/duration/<int:id>') # Duration of specifc trip 
 def get_durationid(id):
