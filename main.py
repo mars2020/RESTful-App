@@ -1,5 +1,5 @@
-#from app.app import app
-from api.py import app #This might be right?
+from app import app
+#from api.py import app #This might be right?
 from requests import get, post
 #should we put pip install -r requirements.txt here?
 
