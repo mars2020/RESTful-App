@@ -4,7 +4,11 @@ import json
 import uuid
 import datetime
 import os
-from dataetime import timedelta
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+import api # importing api functions
+from datetime import timedelta #changed dataetime to datetime
 import matplotlib.pyplot as plt
 
 # getting IP of redis
@@ -15,7 +19,7 @@ def get_redis_ip():
 rd = redis.StrictRedis(host=get_redis_ip(),port=6379,db=0)
 queue = HotQueue("queue", host=get_redis_ip(), port=6379, db=1)
 # data = redis.strictRedis(host=get_redis_ip(),port=6379,db=2)
-plots = redis.strictRedis(host=get_redis_ip(),port=6379,db=3)
+plots = redis.StrictRedis(host=get_redis_ip(),port=6379,db=3)
 
 
 # get time
@@ -96,11 +100,57 @@ file_bytes = open('/tmp/myfile.png', 'rb').read()
 # set the file bytes as a key in Redis
 rd.set('key', file_bytes)
 
+def validity_test(cat): # Tests existence of field 
+    data = b_cycle()
+    found = False
+    for key in data: 
+        if key == cat: 
+            found = True
+    if found == False:
+        print("Error: the given field can't be found")
+    return found 
+
+
 # two lists of data corresponding to the x and y-axis, respectively:
-t = [1,2,3,4,5]
-d = [3,6,7.5, 9, 14]
+
+# Simple plot of given field 
+def plotbar(cat):
+    data = b_cycle() # func def in api.py 
+    found = validity_test(cat)
+    if found == True:
+        d = pd.read_json("B-Cycle.json")
+        graph = pd.value_counts(data["Membership Type"]).plot.bar() # plotting graph
+        #plt.show()                                          # graph display
+        return graph                                         # returns a "graph" class 
+    else: 
+        return
+
+def find_mean(cat):
+    data =b_cycle()
+    found = validity_test(cat)
+    if found == True:
+        d = pd.read_json("B-Cycle.json")
+        mean =d.groupby([cat]).mean()
+        return mean
+    else:
+        return 
+
+def plotbydate(): 
+    data = pd.read_json("B-Cycle.json")
+    data = data.set_index('Checkout Date')
+    
+
+def find_range(cat):
+    data = b_cycle()
+    found = validity_test(cat)
+    if found == True:
+        d = pd.read_json("B-Cycle.json")
+        rg = d.groupby([cat]).range()
+# Time series 
 
 # create the scatter plot
+data = b_cycle(); 
+
 plt.scatter(t, d)
 
 # save to a file

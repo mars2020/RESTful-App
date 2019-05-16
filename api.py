@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
 import json
 import jobs.py
+import numpy as np
+import pandas as pd
+import matplotlib as plt
 from flask import send_file
 
 
@@ -143,6 +146,5 @@ def get_avtime():
 
 @app.route('/average_time/<string:date_interval>', method=['GET'])
 def get_avtime_date():
-    # average time for given date calculation   
-    return jsonify(data['Trip Duration Minutes'][id])
-
+    temp_data = pd.read_json('B-Cycle.json')
+    return jsonify(temp_data['Trip Duration Minutes'].mean())
