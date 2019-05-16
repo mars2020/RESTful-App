@@ -13,6 +13,8 @@ import app # importing api functions
 from datetime import timedelta #changed dataetime to datetime
 import matplotlib.pyplot as plt
 
+data = json.load(open('B-Cycle.json', 'r'))
+
 # getting IP of redis
 def get_redis_ip():
     return os.environ.get('REDIS_IP')
@@ -97,7 +99,7 @@ def graph(name):
         return '',200
 
 
-    """ Comment out plotting section in 
+""" Comment out plotting section 
 #   Plotting
 
 # create a bytes stream object out of some raw bytes:
@@ -169,4 +171,5 @@ plt.scatter(t, d)
 plt.savefig('/tmp/myfile.png', dpi=150)
 
 # getting plot from redis
-plot = hmget('<job_id>', 'plot')"""
+plot = hmget('<job_id>', 'plot')
+"""
