@@ -162,6 +162,22 @@ def get_avtime_date():
     return jsonify(temp_data['Trip Duration Minutes'].mean())
 
 @app.route('/plot/<string:name>', methods=['GET'])
+
 def load_data():
     
+
+def plot(name):
+    graph(name)
+
+#def graph(name):
+#        d = pd.DataFrame.from_dict(data)
+#        name = name.replace('-',' ')
+#        graph = pd.value_counts(d[name]).plot.bar() # plotting graph   
+#        plt.title(name)
+#        plt.ylabel(Number of Data)
+#        plt.xlabel(name)
+#        plt.grid(which=major)    
+#        plt.show(graph)                                       # graph displayvh
+#        return '',200
+
 
