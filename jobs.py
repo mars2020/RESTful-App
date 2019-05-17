@@ -5,13 +5,8 @@ import json
 import uuid
 import datetime
 import os
-import io #new line
-import pandas as pd
-import numpy as np
-import matplotlib as plt
-import app # importing api functions
-from datetime import timedelta #changed dataetime to datetime
-import matplotlib.pyplot as plt
+from app import *
+from datetime import timedelta 
 
 data = json.load(open('B-Cycle.json', 'r'))
 
@@ -38,12 +33,6 @@ def generate_jid():
 
 def generate_job_key(jid):
     return 'job.{}'.format(jid)
-
-
-# Thier instantiate job format
-#def instantiate_job(jid,status,create_time,start,end,offset,limit):
-#    return {'id':jid,'status':status,'start':start,'end':end,'offset':offset,'limit':limit,'create time':create_time,'last update time':create_time}
-
 
 # Starting job format
 def instantiate_job(jid, status, start, end):
@@ -99,77 +88,3 @@ def graph(name):
         return '',200
 
 
-""" Comment out plotting section 
-#   Plotting
-
-# create a bytes stream object out of some raw bytes:
-bstream = io.BytesIO(some_bytes)
-
-# do something with the stream
-#bstream.write(b'abc...')
-
-# read the raw file bytes into a python object
-#file_bytes = open('/tmp/myfile.png', 'rb').read()
-
-# set the file bytes as a key in Redis
-#rd.set('key', file_bytes)
-
-def validity_test(cat): # Tests existence of field 
-    data = b_cycle()
-    found = False
-    for key in data: 
-        if key == cat: 
-            found = True
-    if found == False:
-        print("Error: the given field can't be found")
-    return found 
-
-
-# two lists of data corresponding to the x and y-axis, respectively:
-
-# Simple plot of given field 
-def plotbar(cat):
-    data = b_cycle() # func def in api.py 
-    found = validity_test(cat)
-    if found == True:
-        d = pd.read_json("B-Cycle.json")
-        graph = pd.value_counts(data["Membership Type"]).plot.bar() # plotting graph
-        #plt.show()                                          # graph display
-        return graph                                         # returns a "graph" class 
-    else: 
-        return
-
-def find_mean(cat):
-    data =b_cycle()
-    found = validity_test(cat)
-    if found == True:
-        d = pd.read_json("B-Cycle.json")
-        mean =d.groupby([cat]).mean()
-        return mean
-    else:
-        return 
-
-def plotbydate(): 
-    data = pd.read_json("B-Cycle.json")
-    data = data.set_index('Checkout Date')
-    
-
-def find_range(cat):
-    data = b_cycle()
-    found = validity_test(cat)
-    if found == True:
-        d = pd.read_json("B-Cycle.json")
-        rg = d.groupby([cat]).range()
-# Time series 
-
-# create the scatter plot
-data = b_cycle(); 
-
-plt.scatter(t, d)
-
-# save to a file
-plt.savefig('/tmp/myfile.png', dpi=150)
-
-# getting plot from redis
-plot = hmget('<job_id>', 'plot')
-"""
