@@ -163,11 +163,7 @@ def get_avtime_date():
 
 @app.route('/plot/<string:name>', methods=['GET'])
 
-def load_data():
-    
 
-def plot(name):
-    graph(name)
 
 #def graph(name):
 #        d = pd.DataFrame.from_dict(data)
@@ -179,5 +175,3 @@ def plot(name):
 #        plt.grid(which=major)    
 #        plt.show(graph)                                       # graph displayvh
 #        return '',200
-
-
